@@ -11,6 +11,7 @@ test/results/*
 
 # nf-test
 .nf-test
+.nf-test.log
 null
 /.tap
 /data
