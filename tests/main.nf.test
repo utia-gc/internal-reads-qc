@@ -1,0 +1,24 @@
+nextflow_pipeline {
+
+    name "Test Workflow main.nf"
+    script "main.nf"
+
+    test("main.nf succeeds -- default `nf_test` params") {
+        tag 'full'
+
+        when {
+            params {
+                // define parameters here. Example: 
+                // outdir = "tests/results"
+            }
+        }
+
+        then {
+            // test workflow status
+            assert workflow.success
+            assert workflow.trace.succeeded().size() == 0
+        }
+
+    }
+
+}
