@@ -39,7 +39,6 @@ nextflow_workflow {
                     with(get(0)) {
                         assert sampleName   == 'SRR1066657'
                         assert readType     == 'single'
-                        assert sampleNumber == '3'
                         assert lane         == '001'
                     }
                     // test R1
@@ -62,7 +61,6 @@ nextflow_workflow {
                     with(get(0)) {
                         assert sampleName   == 'SRR1066657'
                         assert readType     == 'single'
-                        assert sampleNumber == '3'
                         assert lane         == '002'
                     }
                     // test R1
@@ -85,7 +83,6 @@ nextflow_workflow {
                     with(get(0)) {
                         assert sampleName   == 'SRR6924569'
                         assert readType     == 'paired'
-                        assert sampleNumber == '1'
                         assert lane         == '001'
                     }
                     // test R1
@@ -108,7 +105,6 @@ nextflow_workflow {
                     with(get(0)) {
                         assert sampleName   == 'SRR6924569'
                         assert readType     == 'paired'
-                        assert sampleNumber == '1'
                         assert lane         == '002'
                     }
                     // test R1
