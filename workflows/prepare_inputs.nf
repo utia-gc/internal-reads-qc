@@ -25,7 +25,7 @@ workflow PREPARE_INPUTS {
             // cast sampleInfo to a map
             .map { sampleInfo, reads1, reads2 ->
                 [
-                    ['sampleInfo': sampleInfo],
+                    populateMetadata(sampleInfo, reads1, reads2),
                     reads1,
                     reads2
                 ]
@@ -35,4 +35,29 @@ workflow PREPARE_INPUTS {
 
     emit:
         reads = ch_readPairs
+}
+
+
+def populateMetadata(sampleInfo, reads1, reads2) {
+    // store metadata in a Map
+    LinkedHashMap metadata = [:]
+
+    // capture metadata from sample information
+    def capturePattern = /(.*)_S\d+_L(\d{3})/
+    def fastqSampleMatcher = (sampleInfo =~ capturePattern)
+
+    // populate metadata with captured sample information
+    if(fastqSampleMatcher.find()) {
+        metadata.put('sampleName', fastqSampleMatcher.group(1))
+        metadata.put('lane', fastqSampleMatcher.group(2))
+    } else {
+        log.error "Could not populate metadata from sample information"
+    }
+
+    // populate library read type metadata from investigating reads2 file
+    // existant and non-empty reads2 file means paired-end reads
+    // assume that reads1 exists and is non empty
+    metadata.put('readType', (reads2.exists() && reads2.isEmpty()) ? 'single' : 'paired')
+
+    return metadata
 }
