@@ -1,0 +1,85 @@
+{
+    "PREPARE_INPUTS takes a directory to reads and emits read pairs with sample metadata -- SE + PE reads.": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "sampleName": "SRR1066657",
+                            "lane": "001",
+                            "readType": "single"
+                        },
+                        "SRR1066657_S3_L001_R1_001.fastq.gz:md5,f6bd1956d4dc04d5afdb47ab6f5ad92d",
+                        "SRR1066657_S3_L001_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR1066657",
+                            "lane": "002",
+                            "readType": "single"
+                        },
+                        "SRR1066657_S3_L002_R1_001.fastq.gz:md5,99701ef5df22c879cd52fc5713c29b3e",
+                        "SRR1066657_S3_L002_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR6924569",
+                            "lane": "001",
+                            "readType": "paired"
+                        },
+                        "SRR6924569_S1_L001_R1_001.fastq.gz:md5,b32743436f3795540eea41dc38dd6891",
+                        "SRR6924569_S1_L001_R2_001.fastq.gz:md5,b0ca1b440e6d152e78a85baf9b8f9146"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR6924569",
+                            "lane": "002",
+                            "readType": "paired"
+                        },
+                        "SRR6924569_S1_L002_R1_001.fastq.gz:md5,d3c1db265968089c8a74e18a188900e2",
+                        "SRR6924569_S1_L002_R2_001.fastq.gz:md5,2f97b233ed4b8e975ef167e1f0d8f4fd"
+                    ]
+                ],
+                "reads": [
+                    [
+                        {
+                            "sampleName": "SRR1066657",
+                            "lane": "001",
+                            "readType": "single"
+                        },
+                        "SRR1066657_S3_L001_R1_001.fastq.gz:md5,f6bd1956d4dc04d5afdb47ab6f5ad92d",
+                        "SRR1066657_S3_L001_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR1066657",
+                            "lane": "002",
+                            "readType": "single"
+                        },
+                        "SRR1066657_S3_L002_R1_001.fastq.gz:md5,99701ef5df22c879cd52fc5713c29b3e",
+                        "SRR1066657_S3_L002_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR6924569",
+                            "lane": "001",
+                            "readType": "paired"
+                        },
+                        "SRR6924569_S1_L001_R1_001.fastq.gz:md5,b32743436f3795540eea41dc38dd6891",
+                        "SRR6924569_S1_L001_R2_001.fastq.gz:md5,b0ca1b440e6d152e78a85baf9b8f9146"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR6924569",
+                            "lane": "002",
+                            "readType": "paired"
+                        },
+                        "SRR6924569_S1_L002_R1_001.fastq.gz:md5,d3c1db265968089c8a74e18a188900e2",
+                        "SRR6924569_S1_L002_R2_001.fastq.gz:md5,2f97b233ed4b8e975ef167e1f0d8f4fd"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-02-07T12:35:04.913883297"
+    }
+}
