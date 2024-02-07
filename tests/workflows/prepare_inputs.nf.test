@@ -45,10 +45,10 @@ nextflow_workflow {
                     }
                     // test R1
                     assert reads1.toString() ==~ /^.*\/SRR1066657_S3_L001_R1_001\.fastq\.gz/
-                    assert reads1.exists() && !reads1.isEmpty()
+                    assert reads1.exists() && reads1.length() > 0
                     // test R2
                     assert reads2.toString() ==~ /^.*\/SRR1066657_S3_L001_R2_001\.fastq\.gz\.EMPTYFILE/
-                    assert reads2.exists() && reads2.isEmpty()
+                    assert reads2.exists() && reads2.length() == 0
                 }
 
                 // test SRR1066657 L002 SE reads
@@ -69,10 +69,10 @@ nextflow_workflow {
                     }
                     // test R1
                     assert reads1.toString() ==~ /^.*\/SRR1066657_S3_L002_R1_001\.fastq\.gz/
-                    assert reads1.exists() && !reads1.isEmpty()
+                    assert reads1.exists() && reads1.length() > 0
                     // test R2
                     assert reads2.toString() ==~ /^.*\/SRR1066657_S3_L002_R2_001\.fastq\.gz\.EMPTYFILE/
-                    assert reads2.exists() && reads2.isEmpty()
+                    assert reads2.exists() && reads2.length() == 0
                 }
 
                 // test SRR6924569 L001 PE reads
@@ -93,10 +93,10 @@ nextflow_workflow {
                     }
                     // test R1
                     assert reads1.toString() ==~ /^.*\/SRR6924569_S1_L001_R1_001\.fastq\.gz/
-                    assert reads1.exists() && !reads1.isEmpty()
+                    assert reads1.exists() && reads1.length() > 0
                     // test R2
                     assert reads2 ==~ /^.*\/SRR6924569_S1_L001_R2_001\.fastq\.gz/
-                    assert reads2.exists() && !reads2.isEmpty()
+                    assert reads2.exists() && reads2.length() > 0
                 }
 
                 // test SRR6924569 L002 PE reads
@@ -117,10 +117,10 @@ nextflow_workflow {
                     }
                     // test R1
                     assert reads1.toString() ==~ /^.*\/SRR6924569_S1_L002_R1_001\.fastq\.gz/
-                    assert reads1.exists() && !reads1.isEmpty()
+                    assert reads1.exists() && reads1.length() > 0
                     // test R2
                     assert reads2.toString() ==~ /^.*\/SRR6924569_S1_L002_R2_001\.fastq\.gz/
-                    assert reads2.exists() && !reads2.isEmpty()
+                    assert reads2.exists() && reads2.length() > 0
                 }
             }
 
