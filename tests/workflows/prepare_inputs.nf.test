@@ -31,7 +31,7 @@ nextflow_workflow {
                 with(get(0)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
-                    assert get(0) instanceof LinkedHashMap
+                    assert get(0) instanceof Map
                     assert get(1).isFile()
                     assert get(2).isFile()
 
@@ -53,7 +53,7 @@ nextflow_workflow {
                 with(get(1)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
-                    assert get(0) instanceof LinkedHashMap
+                    assert get(0) instanceof Map
                     assert get(1).isFile()
                     assert get(2).isFile()
 
@@ -75,7 +75,7 @@ nextflow_workflow {
                 with(get(0)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
-                    assert get(0) instanceof LinkedHashMap
+                    assert get(0) instanceof Map
                     assert get(1).isFile()
                     assert get(2).isFile()
 
@@ -97,7 +97,7 @@ nextflow_workflow {
                 with(get(0)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
-                    assert get(0) instanceof LinkedHashMap
+                    assert get(0) instanceof Map
                     assert get(1).isFile()
                     assert get(2).isFile()
 
