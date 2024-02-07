@@ -13,7 +13,7 @@ nextflow_workflow {
             }
             workflow {
                 """
-                input[0] = file("tests/data/reads/raw")
+                input[0] = "${projectDir}/tests/data/reads/raw"
                 """
             }
         }
