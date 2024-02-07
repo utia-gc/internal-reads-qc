@@ -76,7 +76,7 @@ nextflow_workflow {
                 }
 
                 // test SRR6924569 L001 PE reads
-                with(get(0)) {
+                with(get(2)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
@@ -100,7 +100,7 @@ nextflow_workflow {
                 }
 
                 // test SRR6924569 L002 PE reads
-                with(get(0)) {
+                with(get(3)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
