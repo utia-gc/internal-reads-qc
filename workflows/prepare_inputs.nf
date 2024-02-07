@@ -15,8 +15,11 @@ workflow PREPARE_INPUTS {
                     return [ sampleInfo, reads[0], reads[1] ]
                 } else if(reads.size() == 1) {
                     // create an empty R2 file when reads are single-end
-                    def emptyR2Path = reads[0].getName() + ".EMPTYFILE"
-                    return [ sampleInfo, reads[0], file(emptyR2Path) ]
+                    def emptyR2Path = file(workDir).resolve(reads[0].getName().replaceFirst(/_R1_001/, "_R2_001") + '.EMPTYFILE')
+                    def emptyR2 = file(emptyR2Path)
+                    // have to write to file to create it
+                    emptyR2.write('')
+                    return [ sampleInfo, reads[0], emptyR2 ]
                 }
             }
             // cast sampleInfo to a map
