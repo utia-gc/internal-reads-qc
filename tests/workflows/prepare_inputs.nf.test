@@ -1,0 +1,129 @@
+nextflow_workflow {
+
+    name "Test Workflow PREPARE_INPUTS"
+    script "workflows/prepare_inputs.nf"
+    workflow "PREPARE_INPUTS"
+
+    test("Should run without failures") {
+
+        when {
+            params {
+                // define parameters here. Example:
+                // outdir = "tests/results"
+            }
+            workflow {
+                """
+                input[0] = file("tests/data/reads/raw")
+                """
+            }
+        }
+
+        then {
+            // test workflow status
+            assert workflow.success
+            assert workflow.trace.succeeded().size() == 0
+
+            // test reads parsed with metadata
+            with(workflow.out.reads) {
+                assert size() == 4
+
+                // test SRR1066657 L001 SE reads
+                with(get(0)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof LinkedHashMap
+                    assert get(1).isFile()
+                    assert get(2).isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR1066657'
+                        assert readType     == 'single'
+                        assert sampleNumber == '3'
+                        assert lane         == '001'
+                    }
+                    // test R1
+                    assert get(1) ==~ /^.*\/SRR1066657_S3_L001_R1_001\.fastq\.gz/
+                    assert get(1).exists() && !get(1).isEmpty()
+                    // test R2
+                    assert get(2) ==~ /^.*\/SRR1066657_S3_L001_R2_001\.fastq\.gz\.EMPTYFILE/
+                    assert get(2).exists() && get(2).isEmpty()
+                }
+
+                // test SRR1066657 L002 SE reads
+                with(get(1)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof LinkedHashMap
+                    assert get(1).isFile()
+                    assert get(2).isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR1066657'
+                        assert readType     == 'single'
+                        assert sampleNumber == '3'
+                        assert lane         == '002'
+                    }
+                    // test R1
+                    assert get(1) ==~ /^.*\/SRR1066657_S3_L002_R1_001\.fastq\.gz/
+                    assert get(1).exists() && !get(1).isEmpty()
+                    // test R2
+                    assert get(2) ==~ /^.*\/SRR1066657_S3_L002_R2_001\.fastq\.gz\.EMPTYFILE/
+                    assert get(2).exists() && get(2).isEmpty()
+                }
+
+                // test SRR6924569 L001 PE reads
+                with(get(0)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof LinkedHashMap
+                    assert get(1).isFile()
+                    assert get(2).isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR6924569'
+                        assert readType     == 'paired'
+                        assert sampleNumber == '1'
+                        assert lane         == '001'
+                    }
+                    // test R1
+                    assert get(1) ==~ /^.*\/SRR6924569_S1_L001_R1_001\.fastq\.gz/
+                    assert get(1).exists() && !get(1).isEmpty()
+                    // test R2
+                    assert get(2) ==~ /^.*\/SRR6924569_S1_L001_R2_001\.fastq\.gz/
+                    assert get(2).exists() && !get(2).isEmpty()
+                }
+
+                // test SRR6924569 L002 PE reads
+                with(get(0)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof LinkedHashMap
+                    assert get(1).isFile()
+                    assert get(2).isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR6924569'
+                        assert readType     == 'paired'
+                        assert sampleNumber == '1'
+                        assert lane         == '002'
+                    }
+                    // test R1
+                    assert get(1) ==~ /^.*\/SRR6924569_S1_L002_R1_001\.fastq\.gz/
+                    assert get(1).exists() && !get(1).isEmpty()
+                    // test R2
+                    assert get(2) ==~ /^.*\/SRR6924569_S1_L002_R2_001\.fastq\.gz/
+                    assert get(2).exists() && !get(2).isEmpty()
+                }
+            }
+
+            // test workflow reproducibility
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
