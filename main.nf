@@ -7,11 +7,8 @@ https://github.com/utia-gc/internal-reads-qc
 
 nextflow.enable.dsl=2
 
+include { PREPARE_INPUTS } from './workflows/prepare_inputs.nf'
+
 workflow {
-    Channel
-        .fromFilePairs(
-            file(params.readsDir).resolve('*_R{1,2}_001.fastq.gz'),
-            size: -1
-        )
-        .set { ch_reads }
+    PREPARE_INPUTS(params.readsDir)
 }
