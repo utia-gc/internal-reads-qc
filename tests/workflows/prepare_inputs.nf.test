@@ -4,7 +4,7 @@ nextflow_workflow {
     script "workflows/prepare_inputs.nf"
     workflow "PREPARE_INPUTS"
 
-    test("Should run without failures") {
+    test("PREPARE_INPUTS takes a directory to reads and emits read pairs with sample metadata -- SE + PE reads.") {
 
         when {
             params {
