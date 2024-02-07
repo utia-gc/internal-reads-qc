@@ -32,8 +32,10 @@ nextflow_workflow {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
-                    assert get(1).isFile()
-                    assert get(2).isFile()
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
 
                     // test metadata fields
                     with(get(0)) {
@@ -42,11 +44,11 @@ nextflow_workflow {
                         assert lane         == '001'
                     }
                     // test R1
-                    assert get(1) ==~ /^.*\/SRR1066657_S3_L001_R1_001\.fastq\.gz/
-                    assert get(1).exists() && !get(1).isEmpty()
+                    assert reads1.toString() ==~ /^.*\/SRR1066657_S3_L001_R1_001\.fastq\.gz/
+                    assert reads1.exists() && !reads1.isEmpty()
                     // test R2
-                    assert get(2) ==~ /^.*\/SRR1066657_S3_L001_R2_001\.fastq\.gz\.EMPTYFILE/
-                    assert get(2).exists() && get(2).isEmpty()
+                    assert reads2.toString() ==~ /^.*\/SRR1066657_S3_L001_R2_001\.fastq\.gz\.EMPTYFILE/
+                    assert reads2.exists() && reads2.isEmpty()
                 }
 
                 // test SRR1066657 L002 SE reads
@@ -54,8 +56,10 @@ nextflow_workflow {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
-                    assert get(1).isFile()
-                    assert get(2).isFile()
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
 
                     // test metadata fields
                     with(get(0)) {
@@ -64,11 +68,11 @@ nextflow_workflow {
                         assert lane         == '002'
                     }
                     // test R1
-                    assert get(1) ==~ /^.*\/SRR1066657_S3_L002_R1_001\.fastq\.gz/
-                    assert get(1).exists() && !get(1).isEmpty()
+                    assert reads1.toString() ==~ /^.*\/SRR1066657_S3_L002_R1_001\.fastq\.gz/
+                    assert reads1.exists() && !reads1.isEmpty()
                     // test R2
-                    assert get(2) ==~ /^.*\/SRR1066657_S3_L002_R2_001\.fastq\.gz\.EMPTYFILE/
-                    assert get(2).exists() && get(2).isEmpty()
+                    assert reads2.toString() ==~ /^.*\/SRR1066657_S3_L002_R2_001\.fastq\.gz\.EMPTYFILE/
+                    assert reads2.exists() && reads2.isEmpty()
                 }
 
                 // test SRR6924569 L001 PE reads
@@ -76,8 +80,10 @@ nextflow_workflow {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
-                    assert get(1).isFile()
-                    assert get(2).isFile()
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
 
                     // test metadata fields
                     with(get(0)) {
@@ -86,11 +92,11 @@ nextflow_workflow {
                         assert lane         == '001'
                     }
                     // test R1
-                    assert get(1) ==~ /^.*\/SRR6924569_S1_L001_R1_001\.fastq\.gz/
-                    assert get(1).exists() && !get(1).isEmpty()
+                    assert reads1.toString() ==~ /^.*\/SRR6924569_S1_L001_R1_001\.fastq\.gz/
+                    assert reads1.exists() && !reads1.isEmpty()
                     // test R2
-                    assert get(2) ==~ /^.*\/SRR6924569_S1_L001_R2_001\.fastq\.gz/
-                    assert get(2).exists() && !get(2).isEmpty()
+                    assert reads2 ==~ /^.*\/SRR6924569_S1_L001_R2_001\.fastq\.gz/
+                    assert reads2.exists() && !reads2.isEmpty()
                 }
 
                 // test SRR6924569 L002 PE reads
@@ -98,8 +104,10 @@ nextflow_workflow {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
-                    assert get(1).isFile()
-                    assert get(2).isFile()
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
 
                     // test metadata fields
                     with(get(0)) {
@@ -108,11 +116,11 @@ nextflow_workflow {
                         assert lane         == '002'
                     }
                     // test R1
-                    assert get(1) ==~ /^.*\/SRR6924569_S1_L002_R1_001\.fastq\.gz/
-                    assert get(1).exists() && !get(1).isEmpty()
+                    assert reads1.toString() ==~ /^.*\/SRR6924569_S1_L002_R1_001\.fastq\.gz/
+                    assert reads1.exists() && !reads1.isEmpty()
                     // test R2
-                    assert get(2) ==~ /^.*\/SRR6924569_S1_L002_R2_001\.fastq\.gz/
-                    assert get(2).exists() && !get(2).isEmpty()
+                    assert reads2.toString() ==~ /^.*\/SRR6924569_S1_L002_R2_001\.fastq\.gz/
+                    assert reads2.exists() && !reads2.isEmpty()
                 }
             }
 
