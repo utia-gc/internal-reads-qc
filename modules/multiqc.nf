@@ -6,7 +6,8 @@ process multiqc {
     label 'lil_time'
 
     publishDir(
-        path: "${params.publishDirReports}"
+        path: "${params.publishDirReports}",
+        mode: 'copy'
     )
 
     input:
@@ -19,6 +20,8 @@ process multiqc {
         """
         multiqc \\
             --interactive \\
+            --data-dir \\
+            --data-format tsv \\
             --filename fastqc_multiqc \\
             .
         """
