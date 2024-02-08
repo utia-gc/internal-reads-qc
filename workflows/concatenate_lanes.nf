@@ -1,8 +1,11 @@
+include { cat_reads } from '../modules/cat_reads.nf'
+
 workflow CONCATENATE_LANES {
     take:
         reads
 
     main:
+        // group reads by sample name
         reads
             // pull out samplename as grouping key
             .map { metadata, reads1, reads2 ->
@@ -25,12 +28,16 @@ workflow CONCATENATE_LANES {
 
                 [ consensusMetadata, reads1sSorted, reads2sSorted ]
             }
-            .set{ ch_cat_reads }
-        ch_cat_reads
-            .dump(tag: "grouped_reads")
+            .dump(tag: "ch_grouped_reads")
+            .set{ ch_grouped_reads }
+
+        // concatenate reads in groups
+        cat_reads(ch_grouped_reads)
+        cat_reads.out.cat_reads
+            .dump(tag: "cat_reads.out.cat_reads")
 
     emit:
-        cat_reads = ch_cat_reads
+        cat_reads = cat_reads.out.cat_reads
 }
 
 
