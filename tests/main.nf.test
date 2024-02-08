@@ -8,15 +8,18 @@ nextflow_pipeline {
 
         when {
             params {
-                // define parameters here. Example: 
-                // outdir = "tests/results"
+                publishDirReports = "${outputDir}/qc"
             }
         }
 
         then {
             // test pipeline status
             assert workflow.success
-            assert workflow.trace.succeeded().size() == 4
+            assert workflow.trace.succeeded().size() == 5
+
+            // test MultiQC report published to reports dir reports dir
+            assert path("${params.publishDirReports}/multiqc.html").exists()
+            assert path("${params.publishDirReports}/multiqc_data").exists()
         }
 
     }
