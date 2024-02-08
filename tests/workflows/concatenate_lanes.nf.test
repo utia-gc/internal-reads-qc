@@ -83,7 +83,7 @@ nextflow_workflow {
                     assert reads1.toString() ==~ /^.*\/SRR1066657_R1\.fastq\.gz/
                     assert reads1.exists() && reads1.length() > 0
                     // test R2
-                    assert reads2.toString() ==~ /^.*\/SRR1066657_R2\.fastq\.gz/
+                    assert reads2.toString() ==~ /^.*\/SRR1066657_R2\.fastq\.gz\.EMPTYFILE/
                     assert reads2.exists() && reads2.length() == 0
                 }
 
