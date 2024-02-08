@@ -19,6 +19,7 @@ process multiqc {
         """
         multiqc \\
             --interactive \\
+            --filename fastqc_multiqc \\
             .
         """
 }
