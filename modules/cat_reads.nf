@@ -4,8 +4,8 @@ process cat_reads {
     label 'base'
 
     label 'def_cpu'
-    label 'def_mem'
-    label 'sup_time'
+    label 'lil_mem'
+    label 'lil_time'
 
     input:
         tuple val(metadata), path(reads1), path(reads2)
