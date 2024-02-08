@@ -1,0 +1,88 @@
+nextflow_process {
+
+    name "Test Process fastqc"
+    script "modules/fastqc.nf"
+    process "fastqc"
+
+    test("fastqc runs QC on fastqs -- SE reads.") {
+
+        when {
+            params {
+                // define parameters here. Example:
+                // outdir = "tests/results"
+            }
+            process {
+                """
+                input[0] = [
+                    [
+                        sampleName:   'SRR1066657',
+                        readType:     'single'
+                    ],
+                    file("${projectDir}/tests/data/reads/raw/SRR1066657_S3_L001_R1_001.fastq.gz"),
+                    file("${projectDir}/tests/data/reads/raw/SRR1066657_S3_L001_R2_001.fastq.gz.EMPTYFILE")
+                ]
+                """
+            }
+        }
+
+        then {
+            // test process success
+            assert process.success
+
+            // test html output
+            with(process.out.html) {
+                assert size() == 1
+                assert get(0) ==~ /^.*\/SRR1066657_R1_fastqc.html/
+            }
+            // test zip output
+            with(process.out.zip) {
+                assert size() == 1
+                assert get(0) ==~ /^.*\/SRR1066657_R1_fastqc.zip/
+            }
+        }
+
+    }
+
+
+    test("fastqc runs QC on fastqs -- PE reads.") {
+
+        when {
+            params {
+                // define parameters here. Example:
+                // outdir = "tests/results"
+            }
+            process {
+                """
+                input[0] = [
+                    [
+                        sampleName:   'SRR6924569',
+                        readType:     'paired'
+                    ],
+                    file("${projectDir}/tests/data/reads/raw/SRR6924569_S1_L002_R1_001.fastq.gz"),
+                    file("${projectDir}/tests/data/reads/raw/SRR6924569_S1_L002_R2_001.fastq.gz")
+                ]
+                """
+            }
+        }
+
+        then {
+            // test process success
+            assert process.success
+
+            // test html output
+            with(process.out.html.get(0)) {
+                assert size() == 2
+                assert get(0) ==~ /^.*\/SRR6924569_R1_fastqc.html/
+                assert get(1) ==~ /^.*\/SRR6924569_R2_fastqc.html/
+            }
+            // test zip output
+            with(process.out.zip.get(0)) {
+                assert size() == 2
+                assert get(0) ==~ /^.*\/SRR6924569_R1_fastqc.zip/
+                assert get(1) ==~ /^.*\/SRR6924569_R2_fastqc.zip/
+            }
+        }
+
+    }
+
+}
