@@ -1,0 +1,45 @@
+{
+    "CONCATENATE_LANES concatenates different lanes of the same samples -- SE + PE samples.": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "sampleName": "SRR1066657",
+                            "readType": "single"
+                        },
+                        "SRR1066657_R1.fastq.gz:md5,ccabf5ada78353bc8c0584940ab92d35",
+                        "SRR1066657_R2.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR6924569",
+                            "readType": "paired"
+                        },
+                        "SRR6924569_R1.fastq.gz:md5,525ad355d8f72020b2ad716e38a231f3",
+                        "SRR6924569_R2.fastq.gz:md5,4be7fdf7176be1216c332c49de3656df"
+                    ]
+                ],
+                "cat_reads": [
+                    [
+                        {
+                            "sampleName": "SRR1066657",
+                            "readType": "single"
+                        },
+                        "SRR1066657_R1.fastq.gz:md5,ccabf5ada78353bc8c0584940ab92d35",
+                        "SRR1066657_R2.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "sampleName": "SRR6924569",
+                            "readType": "paired"
+                        },
+                        "SRR6924569_R1.fastq.gz:md5,525ad355d8f72020b2ad716e38a231f3",
+                        "SRR6924569_R2.fastq.gz:md5,4be7fdf7176be1216c332c49de3656df"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2024-02-08T11:26:24.884839875"
+    }
+}

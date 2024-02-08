@@ -14,9 +14,9 @@ nextflow_pipeline {
         }
 
         then {
-            // test workflow status
+            // test pipeline status
             assert workflow.success
-            assert workflow.trace.succeeded().size() == 0
+            assert workflow.trace.succeeded().size() == 2
         }
 
     }

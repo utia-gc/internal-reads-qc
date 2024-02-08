@@ -1,0 +1,121 @@
+nextflow_workflow {
+
+    name "Test Workflow CONCATENATE_LANES"
+    script "workflows/concatenate_lanes.nf"
+    workflow "CONCATENATE_LANES"
+
+    test("CONCATENATE_LANES concatenates different lanes of the same samples -- SE + PE samples.") {
+
+        when {
+            params {
+                // define parameters here. Example:
+                // outdir = "tests/results"
+            }
+            workflow {
+                """
+                input[0] = Channel.of(
+                    [
+                        [
+                            'sampleName': 'SRR1066657',
+                            'readType':   'single',
+                            'lane':       '001'
+                        ],
+                        file("${projectDir}/tests/data/reads/raw/SRR1066657_S3_L001_R1_001.fastq.gz"),
+                        file("${projectDir}/tests/data/reads/raw/SRR1066657_S3_L001_R2_001.fastq.gz.EMPTYFILE")
+                    ],
+                    [
+                        [
+                            'sampleName': 'SRR1066657',
+                            'readType':   'single',
+                            'lane':       '002'
+                        ],
+                        file("${projectDir}/tests/data/reads/raw/SRR1066657_S3_L002_R1_001.fastq.gz"),
+                        file("${projectDir}/tests/data/reads/raw/SRR1066657_S3_L002_R2_001.fastq.gz.EMPTYFILE")
+                    ],
+                    [
+                        [
+                            'sampleName': 'SRR6924569',
+                            'readType':   'paired',
+                            'lane':       '001'
+                        ],
+                        file("${projectDir}/tests/data/reads/raw/SRR6924569_S1_L001_R1_001.fastq.gz"),
+                        file("${projectDir}/tests/data/reads/raw/SRR6924569_S1_L001_R2_001.fastq.gz")
+                    ],
+                    [
+                        [
+                            'sampleName': 'SRR6924569',
+                            'readType':   'paired',
+                            'lane':       '002'
+                        ],
+                        file("${projectDir}/tests/data/reads/raw/SRR6924569_S1_L002_R1_001.fastq.gz"),
+                        file("${projectDir}/tests/data/reads/raw/SRR6924569_S1_L002_R2_001.fastq.gz")
+                    ],
+                )
+                """
+            }
+        }
+
+        then {
+            // test workflow status
+            assert workflow.success
+            assert workflow.trace.succeeded().size() == 2
+
+            with(workflow.out.cat_reads) {
+                assert size() == 2
+
+                // test SRR1066657 SE reads concatenated
+                with(get(0)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof Map
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR1066657'
+                        assert readType     == 'single'
+                        assert lane         == null
+                    }
+                    // test R1
+                    assert reads1.toString() ==~ /^.*\/SRR1066657_R1\.fastq\.gz/
+                    assert reads1.exists() && reads1.length() > 0
+                    // test R2
+                    assert reads2.toString() ==~ /^.*\/SRR1066657_R2\.fastq\.gz\.EMPTYFILE/
+                    assert reads2.exists() && reads2.length() == 0
+                }
+
+                // test SRR6924569 PE reads concatenated
+                with(get(1)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof Map
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR6924569'
+                        assert readType     == 'paired'
+                        assert lane         == null
+                    }
+                    // test R1
+                    assert reads1.toString() ==~ /^.*\/SRR6924569_R1\.fastq\.gz/
+                    assert reads1.exists() && reads1.length() > 0
+                    // test R2
+                    assert reads2.toString() ==~ /^.*\/SRR6924569_R2\.fastq\.gz/
+                    assert reads2.exists() && reads2.length() > 0
+                }
+            }
+
+            // test workflow reproducibility
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
