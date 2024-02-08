@@ -28,13 +28,13 @@ workflow CONCATENATE_LANES {
 
                 [ consensusMetadata, reads1sSorted, reads2sSorted ]
             }
-            .dump(tag: "ch_grouped_reads")
+            .dump(tag: "CONCATENATE_LANES: ch_grouped_reads")
             .set{ ch_grouped_reads }
 
         // concatenate reads in groups
         cat_reads(ch_grouped_reads)
         cat_reads.out.cat_reads
-            .dump(tag: "cat_reads.out.cat_reads")
+            .dump(tag: "CONCATENATE_LANES: cat_reads.out.cat_reads")
 
     emit:
         cat_reads = cat_reads.out.cat_reads
