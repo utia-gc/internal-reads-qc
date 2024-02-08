@@ -8,6 +8,10 @@ workflow PREPARE_INPUTS {
                 file(reads_dir).resolve('*_R{1,2}_001.fastq.gz'),
                 size: -1
             )
+            // filter out "Undetermined" files
+            .filter { sampleInfo, reads ->
+                sampleInfo ==~ /^(?!Undetermined_S0).*/
+            }
             // reshape reads to get a collection of format [sampleInfo, reads1, reads2]
             // for single-end reads, reads2 is an empty file
             .map { sampleInfo, reads ->
