@@ -13,7 +13,7 @@ nextflow_workflow {
             }
             workflow {
                 """
-                input[0] = [
+                input[0] = Channel.of(
                     [
                         [
                             'sampleName': 'SRR1066657',
@@ -50,7 +50,7 @@ nextflow_workflow {
                         "${projectDir}/tests-data/reads/raw/SRR6924569_S1_L002_R1_001.fastq.gz",
                         "${projectDir}/tests-data/reads/raw/SRR6924569_S1_L002_R2_001.fastq.gz"
                     ],
-                ]
+                )
                 """
             }
         }
