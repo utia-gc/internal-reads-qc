@@ -83,4 +83,6 @@ nextflow_process {
             }
         }
 
+    }
+
 }
