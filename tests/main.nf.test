@@ -31,7 +31,7 @@ nextflow_pipeline {
         when {
             params {
                 publishDirReports = "${outputDir}/qc"
-                projetName        = "custom-project-title"
+                projectName       = "custom-project-title"
             }
         }
 
