@@ -12,6 +12,7 @@ process multiqc {
 
     input:
         path '*'
+        val project_name
 
     output:
         path '*'
@@ -22,7 +23,8 @@ process multiqc {
             --interactive \\
             --data-dir \\
             --data-format tsv \\
-            --filename fastqc_multiqc \\
+            --filename ${project_name} \\
+            --title ${project_name} \\
             .
         """
 }

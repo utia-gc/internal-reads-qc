@@ -21,7 +21,10 @@ workflow {
         .concat(fastqc.out.zip)
         .collect(sort: true)
 
-    multiqc(ch_multiqc)
+    multiqc(
+        ch_multiqc,
+        params.projectName
+    )
 
     PREPARE_INPUTS.out.reads.dump(tag: "MAIN: Read pairs")
     CONCATENATE_LANES.out.cat_reads.dump(tag: "MAIN: Catted read pairs")
