@@ -55,7 +55,8 @@ def populateMetadata(sampleInfo, reads1, reads2) {
         metadata.put('sampleName', fastqSampleMatcher.group(1))
         metadata.put('lane', fastqSampleMatcher.group(2))
     } else {
-        log.error "Could not populate metadata from sample information"
+        metadata.put('sampleName', sampleInfo)
+        metadata.put('lane', '')
     }
 
     // populate library read type metadata from investigating reads2 file
