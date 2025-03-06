@@ -15,7 +15,7 @@ nextflow_pipeline {
         then {
             // test pipeline status
             assert workflow.success
-            assert workflow.trace.succeeded().size() == 5
+            assert workflow.trace.succeeded().size() == 7
 
             // test MultiQC report published to reports dir reports dir
             assert path("${params.publishDirReports}/internal-reads-qc_nf-test.html").exists()
@@ -38,7 +38,7 @@ nextflow_pipeline {
         then {
             // test pipeline status
             assert workflow.success
-            assert workflow.trace.succeeded().size() == 5
+            assert workflow.trace.succeeded().size() == 7
 
             // test MultiQC report published to reports dir reports dir
             assert path("${params.publishDirReports}/custom-project-title.html").exists()
