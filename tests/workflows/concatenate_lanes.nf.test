@@ -16,6 +16,15 @@ nextflow_workflow {
                 input[0] = Channel.of(
                     [
                         [
+                            'sampleName': 'SRR0000000',
+                            'readType':   'paired',
+                            'lane':       ''
+                        ],
+                        file("${projectDir}/tests/data/reads/raw/SRR0000000_S8_R1_001.fastq.gz"),
+                        file("${projectDir}/tests/data/reads/raw/SRR0000000_S8_R2_001.fastq.gz")
+                    ],
+                    [
+                        [
                             'sampleName': 'SRR1066657',
                             'readType':   'single',
                             'lane':       '001'
@@ -60,11 +69,35 @@ nextflow_workflow {
             assert workflow.success
             assert workflow.trace.succeeded().size() == 2
 
-            with(workflow.out.cat_reads) {
-                assert size() == 2
+            with(workflow.out.readsForQC) {
+                assert size() == 3
+
+                // test SRR0000000 PE reads not concatenated but output in correct shape
+                with(get(0)) {
+                    // test that format is [metadata, reads1, reads2]
+                    assert size() == 3
+                    assert get(0) instanceof Map
+                    def reads1 = path(get(1)).toFile()
+                    def reads2 = path(get(2)).toFile()
+                    assert reads1.isFile()
+                    assert reads2.isFile()
+
+                    // test metadata fields
+                    with(get(0)) {
+                        assert sampleName   == 'SRR0000000'
+                        assert readType     == 'paired'
+                        assert lane         == null
+                    }
+                    // test R1
+                    assert reads1.toString() ==~ /^.*\/SRR0000000_S8_R1_001\.fastq\.gz/
+                    assert reads1.exists() && reads1.length() > 0
+                    // test R2
+                    assert reads2.toString() ==~ /^.*\/SRR0000000_S8_R2_001\.fastq\.gz/
+                    assert reads2.exists() && reads2.length() > 0
+                }
 
                 // test SRR1066657 SE reads concatenated
-                with(get(0)) {
+                with(get(1)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map
@@ -88,7 +121,7 @@ nextflow_workflow {
                 }
 
                 // test SRR6924569 PE reads concatenated
-                with(get(1)) {
+                with(get(2)) {
                     // test that format is [metadata, reads1, reads2]
                     assert size() == 3
                     assert get(0) instanceof Map

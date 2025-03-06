@@ -27,5 +27,5 @@ workflow {
     )
 
     PREPARE_INPUTS.out.reads.dump(tag: "MAIN: Read pairs")
-    CONCATENATE_LANES.out.cat_reads.dump(tag: "MAIN: Catted read pairs")
+    CONCATENATE_LANES.out.readsForQC.dump(tag: "MAIN: Catted read pairs")
 }

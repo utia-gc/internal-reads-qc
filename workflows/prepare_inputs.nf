@@ -47,13 +47,14 @@ def populateMetadata(sampleInfo, reads1, reads2) {
     LinkedHashMap metadata = [:]
 
     // capture metadata from sample information
-    def capturePattern = /(.*)_S\d+_L(\d{3})/
-    def fastqSampleMatcher = (sampleInfo =~ capturePattern)
+    // captures lane number if it exists
+    def capturePattern = /^(.*?)_S(\d+)(?:_L(\d+))?_R[12]_001\.fastq\.gz$/
+    def fastqSampleMatcher = (reads1.getName() =~ capturePattern)
 
     // populate metadata with captured sample information
     if(fastqSampleMatcher.find()) {
         metadata.put('sampleName', fastqSampleMatcher.group(1))
-        metadata.put('lane', fastqSampleMatcher.group(2))
+        metadata.put('lane', fastqSampleMatcher.group(3) ?: '')
     } else {
         metadata.put('sampleName', sampleInfo)
         metadata.put('lane', '')
