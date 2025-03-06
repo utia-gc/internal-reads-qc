@@ -5,11 +5,20 @@
                 "0": [
                     [
                         {
+                            "sampleName": "SRR0000000",
+                            "lane": "",
+                            "readType": "paired"
+                        },
+                        "SRR0000000_S8_R1_001.fastq.gz:md5,ca21995dbc0501708eba59cd04df1f81",
+                        "SRR0000000_S8_R2_001.fastq.gz:md5,6748363463e372ce7cfc2d97633b492f"
+                    ],
+                    [
+                        {
                             "sampleName": "SRR1066657",
                             "lane": "001",
                             "readType": "single"
                         },
-                        "SRR1066657_S3_L001_R1_001.fastq.gz:md5,f6bd1956d4dc04d5afdb47ab6f5ad92d",
+                        "SRR1066657_S3_L001_R1_001.fastq.gz:md5,2a288d18d3b65cd2d33bb51a9b1c3aa5",
                         "SRR1066657_S3_L001_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
@@ -18,7 +27,7 @@
                             "lane": "002",
                             "readType": "single"
                         },
-                        "SRR1066657_S3_L002_R1_001.fastq.gz:md5,99701ef5df22c879cd52fc5713c29b3e",
+                        "SRR1066657_S3_L002_R1_001.fastq.gz:md5,24e26bcb7fe0ac19e41664382662d166",
                         "SRR1066657_S3_L002_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
@@ -27,8 +36,8 @@
                             "lane": "001",
                             "readType": "paired"
                         },
-                        "SRR6924569_S1_L001_R1_001.fastq.gz:md5,b32743436f3795540eea41dc38dd6891",
-                        "SRR6924569_S1_L001_R2_001.fastq.gz:md5,b0ca1b440e6d152e78a85baf9b8f9146"
+                        "SRR6924569_S1_L001_R1_001.fastq.gz:md5,ca21995dbc0501708eba59cd04df1f81",
+                        "SRR6924569_S1_L001_R2_001.fastq.gz:md5,6748363463e372ce7cfc2d97633b492f"
                     ],
                     [
                         {
@@ -36,18 +45,27 @@
                             "lane": "002",
                             "readType": "paired"
                         },
-                        "SRR6924569_S1_L002_R1_001.fastq.gz:md5,d3c1db265968089c8a74e18a188900e2",
-                        "SRR6924569_S1_L002_R2_001.fastq.gz:md5,2f97b233ed4b8e975ef167e1f0d8f4fd"
+                        "SRR6924569_S1_L002_R1_001.fastq.gz:md5,bd0746d64b03d97b27c6a8df94565836",
+                        "SRR6924569_S1_L002_R2_001.fastq.gz:md5,e77b0abbf4abdc0afcddf778f902db32"
                     ]
                 ],
                 "reads": [
                     [
                         {
+                            "sampleName": "SRR0000000",
+                            "lane": "",
+                            "readType": "paired"
+                        },
+                        "SRR0000000_S8_R1_001.fastq.gz:md5,ca21995dbc0501708eba59cd04df1f81",
+                        "SRR0000000_S8_R2_001.fastq.gz:md5,6748363463e372ce7cfc2d97633b492f"
+                    ],
+                    [
+                        {
                             "sampleName": "SRR1066657",
                             "lane": "001",
                             "readType": "single"
                         },
-                        "SRR1066657_S3_L001_R1_001.fastq.gz:md5,f6bd1956d4dc04d5afdb47ab6f5ad92d",
+                        "SRR1066657_S3_L001_R1_001.fastq.gz:md5,2a288d18d3b65cd2d33bb51a9b1c3aa5",
                         "SRR1066657_S3_L001_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
@@ -56,7 +74,7 @@
                             "lane": "002",
                             "readType": "single"
                         },
-                        "SRR1066657_S3_L002_R1_001.fastq.gz:md5,99701ef5df22c879cd52fc5713c29b3e",
+                        "SRR1066657_S3_L002_R1_001.fastq.gz:md5,24e26bcb7fe0ac19e41664382662d166",
                         "SRR1066657_S3_L002_R2_001.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ],
                     [
@@ -65,8 +83,8 @@
                             "lane": "001",
                             "readType": "paired"
                         },
-                        "SRR6924569_S1_L001_R1_001.fastq.gz:md5,b32743436f3795540eea41dc38dd6891",
-                        "SRR6924569_S1_L001_R2_001.fastq.gz:md5,b0ca1b440e6d152e78a85baf9b8f9146"
+                        "SRR6924569_S1_L001_R1_001.fastq.gz:md5,ca21995dbc0501708eba59cd04df1f81",
+                        "SRR6924569_S1_L001_R2_001.fastq.gz:md5,6748363463e372ce7cfc2d97633b492f"
                     ],
                     [
                         {
@@ -74,12 +92,16 @@
                             "lane": "002",
                             "readType": "paired"
                         },
-                        "SRR6924569_S1_L002_R1_001.fastq.gz:md5,d3c1db265968089c8a74e18a188900e2",
-                        "SRR6924569_S1_L002_R2_001.fastq.gz:md5,2f97b233ed4b8e975ef167e1f0d8f4fd"
+                        "SRR6924569_S1_L002_R1_001.fastq.gz:md5,bd0746d64b03d97b27c6a8df94565836",
+                        "SRR6924569_S1_L002_R2_001.fastq.gz:md5,e77b0abbf4abdc0afcddf778f902db32"
                     ]
                 ]
             }
         ],
-        "timestamp": "2024-02-07T12:35:04.913883297"
+        "meta": {
+            "nf-test": "0.9.0",
+            "nextflow": "24.04.4"
+        },
+        "timestamp": "2025-03-06T17:04:34.397928672"
     }
 }
