@@ -28,16 +28,29 @@ workflow CONCATENATE_LANES {
 
                 [ consensusMetadata, reads1sSorted, reads2sSorted ]
             }
-            .dump(tag: "CONCATENATE_LANES: ch_grouped_reads")
-            .set{ ch_grouped_reads }
+            .branch { consensusMetadata, reads1sSorted, reads2sSorted ->
+                needsCat: reads1sSorted.size() > 1 && reads2sSorted.size() > 1
+                noCat: reads1sSorted.size() == 1 && reads2sSorted.size() == 1
+            }
+            .set { ch_groupedReads }
+        ch_groupedReads.needsCat.dump(tag: "CONCATENATE_LANES: reads to concatenate")
 
         // concatenate reads in groups
-        cat_reads(ch_grouped_reads)
+        cat_reads(ch_groupedReads.needsCat)
         cat_reads.out.cat_reads
             .dump(tag: "CONCATENATE_LANES: cat_reads.out.cat_reads")
 
+        // reshape reads that don't need concatenation
+        ch_groupedReads.noCat
+            .map { metadata, reads1List, reads2List ->
+                return [ metadata, reads1List[0], reads2List[0] ]
+            }
+            .mix(cat_reads.out.cat_reads)
+            .dump(tag: "CONCATENATE_LANES: mixed reads")
+            .set { ch_readsForQC }
+
     emit:
-        cat_reads = cat_reads.out.cat_reads
+        readsForQC = ch_readsForQC
 }
 
 
