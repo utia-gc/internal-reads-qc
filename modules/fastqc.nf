@@ -25,6 +25,7 @@ process fastqc {
             fastqc \\
                 --quiet \\
                 --threads 1 \\
+		--dir \${PWD} \\
                 ${r1Name}
             """
         } else if(metadata.readType == 'paired') {
@@ -38,6 +39,7 @@ process fastqc {
             fastqc \\
                 --quiet \\
                 --threads 2 \\
+		--dir \${PWD} \\
                 ${r1Name} \\
                 ${r2Name}
             """
