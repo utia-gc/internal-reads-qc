@@ -5,7 +5,12 @@ workflow PREPARE_INPUTS {
     main:
         Channel
             .fromFilePairs(
-                file(reads_dir).resolve('*_R{1,2}_001.fastq.gz'),
+                [
+                    // glob match single- or paired-end Illumina style gzipped FASTQ file names which contain '_001.fastq.gz' after the '_R1/2' read end designation
+                    file(reads_dir).resolve('*_R{1,2}_001.fastq.gz'),
+                    // glob match single- or paired-end Ultima style gzipped FASTQ file names
+                    file(reads_dir).resolve('*_R{1,2}.fastq.gz'),
+                ],
                 size: -1
             )
             // filter out "Undetermined" files
@@ -18,8 +23,11 @@ workflow PREPARE_INPUTS {
                 if(reads.size() == 2) {
                     return [ sampleInfo, reads[0], reads[1] ]
                 } else if(reads.size() == 1) {
+                    // determine whether FASTQ file name matches Illumina or Ultima style
+                    def isIlluminaStyleFastqName = reads[0].getName() ==~ /_R1_001\.fastq\.gz/
                     // create an empty R2 file when reads are single-end
-                    def emptyR2Path = file(workDir).resolve(reads[0].getName().replaceFirst(/_R1_001/, "_R2_001") + '.EMPTYFILE')
+                    def emptyR2Path = (isIlluminaStyleFastqName) ? file(workDir).resolve(reads[0].getName().replaceFirst(/_R1_001/, '_R2_001') + '.EMPTYFILE') : file(workDir).resolve(reads[0].getName().replaceFirst(/_R1/, '_R2') + '.EMPTYFILE')
+                    // def emptyR2Path = file(workDir).resolve(reads[0].getName().replaceFirst(/_R1_001/, "_R2_001") + '.EMPTYFILE')
                     def emptyR2 = file(emptyR2Path)
                     // have to write to file to create it
                     emptyR2.write('')

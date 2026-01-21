@@ -32,6 +32,15 @@
                     ],
                     [
                         {
+                            "sampleName": "SRR30357389_Deep_RNA-seq",
+                            "lane": "",
+                            "readType": "single"
+                        },
+                        "SRR30357389_Deep_RNA-seq_R1.fastq.gz:md5,a0be7172ac2d58f2ae8b01da29e8e57e",
+                        "SRR30357389_Deep_RNA-seq_R2.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
                             "sampleName": "SRR6924569",
                             "lane": "001",
                             "readType": "paired"
@@ -79,6 +88,15 @@
                     ],
                     [
                         {
+                            "sampleName": "SRR30357389_Deep_RNA-seq",
+                            "lane": "",
+                            "readType": "single"
+                        },
+                        "SRR30357389_Deep_RNA-seq_R1.fastq.gz:md5,a0be7172ac2d58f2ae8b01da29e8e57e",
+                        "SRR30357389_Deep_RNA-seq_R2.fastq.gz.EMPTYFILE:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
                             "sampleName": "SRR6924569",
                             "lane": "001",
                             "readType": "paired"
@@ -100,8 +118,8 @@
         ],
         "meta": {
             "nf-test": "0.9.0",
-            "nextflow": "24.04.4"
+            "nextflow": "25.11.0"
         },
-        "timestamp": "2025-03-06T17:04:34.397928672"
+        "timestamp": "2026-01-16T16:04:14.053035089"
     }
 }
