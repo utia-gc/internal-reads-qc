@@ -1,30 +1,29 @@
 process multiqc {
     label 'multiqc'
-    
+
     label 'def_cpu'
     label 'def_mem'
     label 'lil_time'
 
-    publishDir(
-        path: "${params.publishDirReports}",
-        mode: 'copy'
-    )
+    publishDir path: "${params.publishDirReports}", mode: 'copy'
 
     input:
-        path '*'
-        val project_name
+    path '*'
+    path config
+    val project_name
 
     output:
-        path '*'
+    path '*'
 
     script:
-        """
-        multiqc \\
-            --interactive \\
-            --data-dir \\
-            --data-format tsv \\
-            --filename ${project_name} \\
-            --title ${project_name} \\
-            .
-        """
+    """
+    multiqc \\
+        --interactive \\
+        --data-dir \\
+        --data-format tsv \\
+        --config ${config} \\
+        --filename ${project_name} \\
+        --title ${project_name} \\
+        .
+    """
 }

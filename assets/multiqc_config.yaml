@@ -1,0 +1,17 @@
+custom_data:
+  sequencing_counts:
+    file_format: "tsv"
+    plot_type: "generalstats"
+    pconfig:
+      - read_count:
+          title: "Read Count"
+          description: "Count of reads in FASTQ."
+          format: "{:,.0f}"
+      - base_count:
+          title: "Base Count"
+          description: "Count of bases in FASTQ."
+          scale: "YlOrBr"
+          format: "{:,.0f}"
+sp:
+  sequencing_counts:
+    fn: "fastqc-summary.tsv"
