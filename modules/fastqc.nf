@@ -1,47 +1,29 @@
 process fastqc {
-    tag "${metadata.sampleName}"
+    tag "batch_${task.index}"
 
     label 'fastqc'
 
-    label 'med_cpu'
-    label 'def_mem'
     label 'med_time'
 
+    // scale number CPUs to match number FASTQ files
+    cpus { fastq_files.size() }
+    // scale memory to be 2GB overhead + 0.5GB per FASTQ files
+    memory { 2048.MB + 512.MB * fastq_files.size() }
+
     input:
-        tuple val(metadata), path(reads1), path(reads2)
+    path fastq_files, arity: '1..*'
 
     output:
-        path('*.html'), emit: html
-        path('*.zip'),  emit: zip
+    path ('*.html'), arity: '1..*', emit: html
+    path ('*.zip'), arity: '1..*', emit: zip
 
     script:
-        def r1Name = "${metadata.sampleName}_R1.fastq.gz"
-
-        if(metadata.readType == 'single') {
-            """
-            # rename files through softlinks if necessary
-            [ ! -f ${r1Name} ] && ln -s ${reads1} ${r1Name}
-
-            fastqc \\
-                --quiet \\
-                --threads 1 \\
-		--dir \${PWD} \\
-                ${r1Name}
-            """
-        } else if(metadata.readType == 'paired') {
-            def r2Name = "${metadata.sampleName}_R2.fastq.gz"
-            
-            """
-            # rename files through softlinks if necessary
-            [ ! -f ${r1Name} ] && ln -s ${reads1} ${r1Name}
-            [ ! -f ${r2Name} ] && ln -s ${reads2} ${r2Name}
-
-            fastqc \\
-                --quiet \\
-                --threads 2 \\
-		--dir \${PWD} \\
-                ${r1Name} \\
-                ${r2Name}
-            """
-        }
+    """
+    fastqc \\
+        --quiet \\
+        --threads ${task.cpus} \\
+        --dir \${PWD} \\
+        --nogroup \\
+        ${fastq_files}
+    """
 }

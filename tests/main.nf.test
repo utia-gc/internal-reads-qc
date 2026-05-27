@@ -15,11 +15,15 @@ nextflow_pipeline {
         then {
             // test pipeline status
             assert workflow.success
-            assert workflow.trace.succeeded().size() == 7
+            assert workflow.trace.succeeded().size() == 3
 
-            // test MultiQC report published to reports dir reports dir
+            // test MultiQC report published to reports dir
             assert path("${params.publishDirReports}/internal-reads-qc_nf-test.html").exists()
-            assert path("${params.publishDirReports}/internal-reads-qc_nf-test_data").exists()
+            def multiqcDataDir = path("${params.publishDirReports}/internal-reads-qc_nf-test_data")
+            assert multiqcDataDir.exists()
+            // number of fastqc samples is the number of lines in the multiqc_fastqc.txt file minus one for the header line
+            def numberFastqcSamples = multiqcDataDir.resolve("multiqc_fastqc.txt").readLines().size() - 1
+            assert numberFastqcSamples == 9
         }
 
     }
@@ -38,11 +42,42 @@ nextflow_pipeline {
         then {
             // test pipeline status
             assert workflow.success
-            assert workflow.trace.succeeded().size() == 7
+            assert workflow.trace.succeeded().size() == 3
 
-            // test MultiQC report published to reports dir reports dir
+            // test MultiQC report published to reports dir
             assert path("${params.publishDirReports}/custom-project-title.html").exists()
-            assert path("${params.publishDirReports}/custom-project-title_data").exists()
+            def multiqcDataDir = path("${params.publishDirReports}/custom-project-title_data")
+            assert multiqcDataDir.exists()
+            // number of fastqc samples is the number of lines in the multiqc_fastqc.txt file minus one for the header line
+            def numberFastqcSamples = multiqcDataDir.resolve("multiqc_fastqc.txt").readLines().size() - 1
+            assert numberFastqcSamples == 9
+        }
+
+    }
+
+
+    test("main.nf succeeds -- buffer size 1") {
+        tag 'full'
+
+        when {
+            params {
+                publishDirReports = "${outputDir}/qc"
+                bufferSize = 1
+            }
+        }
+
+        then {
+            // test pipeline status
+            assert workflow.success
+            assert workflow.trace.succeeded().size() == 10
+
+            // test MultiQC report published to reports dir
+            assert path("${params.publishDirReports}/internal-reads-qc_nf-test.html").exists()
+            def multiqcDataDir = path("${params.publishDirReports}/internal-reads-qc_nf-test_data")
+            assert multiqcDataDir.exists()
+            // number of fastqc samples is the number of lines in the multiqc_fastqc.txt file minus one for the header line
+            def numberFastqcSamples = multiqcDataDir.resolve("multiqc_fastqc.txt").readLines().size() - 1
+            assert numberFastqcSamples == 9
         }
 
     }

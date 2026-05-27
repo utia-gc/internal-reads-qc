@@ -5,27 +5,30 @@
 https://github.com/utia-gc/internal-reads-qc
 */
 
-nextflow.enable.dsl=2
+nextflow.enable.dsl = 2
 
-include { CONCATENATE_LANES } from './workflows/concatenate_lanes.nf'
-include { fastqc            } from './modules/fastqc.nf'
-include { multiqc           } from './modules/multiqc.nf'
-include { PREPARE_INPUTS    } from './workflows/prepare_inputs.nf'
+include { fastqc } from './modules/fastqc.nf'
+include { multiqc } from './modules/multiqc.nf'
 
 workflow {
-    PREPARE_INPUTS(params.readsDir)
-      | CONCATENATE_LANES
-      | fastqc
+    inputFastqs_ch = channel.fromPath(
+            file(params.readsDir).resolve('*.fastq.gz')
+        )
+        .filter { fastqPath ->
+            fastqPath.name ==~ /^(?!Undetermined_S0).*/
+        }
 
-    ch_multiqc = Channel.empty()
+    // gather input FASTQs into groups of size `params.bufferSize` for batch processing
+    bufferedFastqs_ch = inputFastqs_ch.buffer(size: params.bufferSize, remainder: true)
+    fastqc(bufferedFastqs_ch)
+
+    ch_multiqc = Channel
+        .empty()
         .concat(fastqc.out.zip)
         .collect(sort: true)
 
     multiqc(
         ch_multiqc,
-        params.projectName
+        params.projectName,
     )
-
-    PREPARE_INPUTS.out.reads.dump(tag: "MAIN: Read pairs")
-    CONCATENATE_LANES.out.readsForQC.dump(tag: "MAIN: Catted read pairs")
 }
