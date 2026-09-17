@@ -12,9 +12,18 @@ include { fastqc_summary } from './modules/fastqc_summary'
 include { multiqc } from './modules/multiqc.nf'
 
 workflow {
+    // read input FASTQs to run QC on from a samplesheet where each FASTQ is on its own line
     inputFastqs_ch = channel.fromPath(
-            file(params.readsDir).resolve('*.fastq.gz')
+            params.samplesheet,
+            checkIfExists: true,
+            glob: false,
         )
+        .flatMap { inputFastqsPath ->
+            inputFastqsPath
+                .splitText()
+                .collect { line -> file(line.strip()) }
+                .toSorted { a, b -> a.name <=> b.name }
+        }
         .filter { fastqPath ->
             fastqPath.name ==~ /^(?!Undetermined_S0).*/
         }
